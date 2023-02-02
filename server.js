@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 
 const PORT = 4000;
 
@@ -13,10 +14,11 @@ app.use((req, res, next) => {
   console.log(`${req.method} ${req.baseUrl}${req.url} ${end}ms`);
 });
 
+app.use("/site", express.static(path.join(__dirname, "public")));
 app.use(express.json());
 
-app.use('/friends', friendsRouter);
-app.use('/messages', messagesRouter);
+app.use("/friends", friendsRouter);
+app.use("/messages", messagesRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}...`);
